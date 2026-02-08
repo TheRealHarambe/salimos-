@@ -1,125 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>salimoss?</title>
 
-<main class="card" id="screen1">
-  <div class="content">
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <div class="art" aria-hidden="true">
-      <!-- perejil stickman con rosa -->
-      <svg viewBox="0 0 200 200" width="160" height="160">
-        <path d="M98 26
-                 C86 18, 78 30, 84 40
-                 C70 34, 62 50, 76 58
-                 C58 58, 60 76, 78 78
-                 C70 90, 88 98, 98 88
-                 C110 102, 134 90, 122 76
-                 C140 76, 144 56, 126 54
-                 C140 44, 124 28, 114 38
-                 C118 26, 106 18, 98 26 Z"
-              fill="#22c55e" opacity="0.95"/>
-        <path d="M98 88 C92 102, 94 116, 100 130 C106 116, 108 100, 102 88 Z"
-              fill="#16a34a" opacity="0.95"/>
-        <g stroke="#111827" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
-          <path d="M100 130 L100 158" />
-          <path d="M100 140 L76 132" />
-          <path d="M100 140 L128 126" />
-          <path d="M100 158 L86 180" />
-          <path d="M100 158 L114 180" />
-        </g>
-        <path d="M128 126 L150 98" stroke="#065f46" stroke-width="5" stroke-linecap="round"/>
-        <path d="M142 104 C138 104, 136 110, 141 112 C146 114, 148 108, 142 104 Z"
-              fill="#22c55e"/>
-        <g transform="translate(150,98)">
-          <circle cx="0" cy="0" r="10" fill="#ef4444"/>
-          <path d="M0 -12 C10 -12, 12 -2, 0 -2 C-12 -2, -10 -12, 0 -12 Z" fill="#f87171"/>
-          <path d="M0 2 C10 2, 12 12, 0 12 C-12 12, -10 2, 0 2 Z" fill="#dc2626" opacity=".9"/>
-          <circle cx="0" cy="0" r="3" fill="#111827" opacity=".35"/>
-        </g>
-      </svg>
-    </div>
-
-    <h1>salimoss?</h1>
-
-    <div class="rope-layer" aria-hidden="true">
-      <svg>
-        <path id="ropeGlow" d="" fill="none" stroke="rgba(185,76,255,.25)" stroke-width="10" stroke-linecap="round"></path>
-        <path id="ropePath" d="" fill="none" stroke="rgba(17,24,39,.65)" stroke-width="4" stroke-linecap="round"></path>
-      </svg>
-    </div>
-
-    <div class="buttons" id="buttonsWrap">
-      <button id="btnYes" class="locked" type="button">Si</button>
-      <button id="btnNo" type="button">no</button>
-    </div>
-  </div>
-</main>
-
-<section class="screen2" id="screen2" aria-hidden="true">
-  <div class="panel2">
-    <p class="q2">¿Dónde salimos?</p>
-
-    <div class="radio-group" id="placeChoices">
-      <label class="opt">
-        <input type="radio" name="plan" value="boliche/chupa + porro chill">
-        <span class="dot" aria-hidden="true"></span>
-        <span>boliche / chupa + porro chill</span>
-      </label>
-
-      <label class="opt">
-        <input type="radio" name="plan" value="cena y divagación random">
-        <span class="dot" aria-hidden="true"></span>
-        <span>cena y divagación random</span>
-      </label>
-
-      <label class="opt">
-        <input type="radio" name="plan" value="aterrizo a la upb?">
-        <span class="dot" aria-hidden="true"></span>
-        <span>aterrizo a la upb?</span>
-      </label>
-
-      <label class="opt">
-        <input type="radio" name="plan" value="mejor yo elijo">
-        <span class="dot" aria-hidden="true"></span>
-        <span>mejor yo elijo</span>
-      </label>
-
-      <label class="opt">
-        <input type="radio" name="plan" value="elegí todo vos">
-        <span class="dot" aria-hidden="true"></span>
-        <span>elegí todo vos</span>
-      </label>
-    </div>
-
-    <div class="label"> (detalles o plan) </div>
-    <textarea id="details" maxlength="500" placeholder="Escribe aquí… (máx 500 caracteres)"></textarea>
-
-    <div class="send-wrap">
-      <button id="btnSend" type="button" disabled>Enviar</button>
-    </div>
-
-    <p class="status" id="sendHint">Elige una opción para habilitar “Enviar”.</p>
-    <p class="status" id="sendStatus"></p>
-  </div>
-</section>
-
-<div class="modal" id="dateModal" aria-hidden="true">
-  <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="x" id="closeModal" type="button" aria-label="Cerrar">✕</button>
-
-    <div id="modalTitle" class="modalTitle">
-      Elegiste la fecha (si no ponla abajo)
-    </div>
-
-    <input id="dateInput" type="text" placeholder="Ej: Domingo 8pm, hoy, mañana, etc." />
-
-    <div class="finalSendWrap">
-      <button id="btnFinalSend" type="button">Enviar</button>
-    </div>
-
-    <p class="modalHint">
-      Puedes enviar sin poner fecha o cerrar con ✕.
-    </p>
-  </div>
-</div>
-:root{
+  <style>
+  /* PEGAR CSS AQUÍ */
+    :root{
   --bg1:#0b0b12;
   --bg3:#ffffff;
 
@@ -445,7 +336,167 @@ textarea{
   outline:none;
   font-size:15px;
 }
-// =========================
+
+.modalBox .x{
+  position:absolute;
+  top:10px;
+  right:10px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-size:18px;
+  opacity:.75;
+}
+.modalBox .x:hover{ opacity:1; }
+
+.finalSendWrap{
+  margin-top:12px;
+  display:flex;
+  justify-content:center;
+}
+
+.modalHint{
+  margin:10px 0 0;
+  font-size:12px;
+  opacity:.7;
+}
+
+@media (max-width:420px){
+  .card{ height:min(560px,86vh); }
+  button{ min-width:0; width:44%; }
+  .buttons{ left:16px; right:16px; bottom:18px; gap:14px; }
+}
+
+  </style>
+</head>
+
+<body>
+
+  
+<main class="card" id="screen1">
+  <div class="content">
+
+    <div class="art" aria-hidden="true">
+      <!-- perejil stickman con rosa -->
+      <svg viewBox="0 0 200 200" width="160" height="160">
+        <path d="M98 26
+                 C86 18, 78 30, 84 40
+                 C70 34, 62 50, 76 58
+                 C58 58, 60 76, 78 78
+                 C70 90, 88 98, 98 88
+                 C110 102, 134 90, 122 76
+                 C140 76, 144 56, 126 54
+                 C140 44, 124 28, 114 38
+                 C118 26, 106 18, 98 26 Z"
+              fill="#22c55e" opacity="0.95"/>
+        <path d="M98 88 C92 102, 94 116, 100 130 C106 116, 108 100, 102 88 Z"
+              fill="#16a34a" opacity="0.95"/>
+        <g stroke="#111827" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <path d="M100 130 L100 158" />
+          <path d="M100 140 L76 132" />
+          <path d="M100 140 L128 126" />
+          <path d="M100 158 L86 180" />
+          <path d="M100 158 L114 180" />
+        </g>
+        <path d="M128 126 L150 98" stroke="#065f46" stroke-width="5" stroke-linecap="round"/>
+        <path d="M142 104 C138 104, 136 110, 141 112 C146 114, 148 108, 142 104 Z"
+              fill="#22c55e"/>
+        <g transform="translate(150,98)">
+          <circle cx="0" cy="0" r="10" fill="#ef4444"/>
+          <path d="M0 -12 C10 -12, 12 -2, 0 -2 C-12 -2, -10 -12, 0 -12 Z" fill="#f87171"/>
+          <path d="M0 2 C10 2, 12 12, 0 12 C-12 12, -10 2, 0 2 Z" fill="#dc2626" opacity=".9"/>
+          <circle cx="0" cy="0" r="3" fill="#111827" opacity=".35"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1>salimoss?</h1>
+
+    <div class="rope-layer" aria-hidden="true">
+      <svg>
+        <path id="ropeGlow" d="" fill="none" stroke="rgba(185,76,255,.25)" stroke-width="10" stroke-linecap="round"></path>
+        <path id="ropePath" d="" fill="none" stroke="rgba(17,24,39,.65)" stroke-width="4" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="buttons" id="buttonsWrap">
+      <button id="btnYes" class="locked" type="button">Si</button>
+      <button id="btnNo" type="button">no</button>
+    </div>
+  </div>
+</main>
+
+<section class="screen2" id="screen2" aria-hidden="true">
+  <div class="panel2">
+    <p class="q2">¿Dónde salimos?</p>
+
+    <div class="radio-group" id="placeChoices">
+      <label class="opt">
+        <input type="radio" name="plan" value="boliche/chupa + porro chill">
+        <span class="dot" aria-hidden="true"></span>
+        <span>boliche / chupa + porro chill</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="cena y divagación random">
+        <span class="dot" aria-hidden="true"></span>
+        <span>cena y divagación random</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="aterrizo a la upb?">
+        <span class="dot" aria-hidden="true"></span>
+        <span>aterrizo a la upb?</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="mejor yo elijo">
+        <span class="dot" aria-hidden="true"></span>
+        <span>mejor yo elijo</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="elegí todo vos">
+        <span class="dot" aria-hidden="true"></span>
+        <span>elegí todo vos</span>
+      </label>
+    </div>
+
+    <div class="label"> (detalles o plan) </div>
+    <textarea id="details" maxlength="500" placeholder="Escribe aquí… (máx 500 caracteres)"></textarea>
+
+    <div class="send-wrap">
+      <button id="btnSend" type="button" disabled>Enviar</button>
+    </div>
+
+    <p class="status" id="sendHint">Elige una opción para habilitar “Enviar”.</p>
+    <p class="status" id="sendStatus"></p>
+  </div>
+</section>
+
+<div class="modal" id="dateModal" aria-hidden="true">
+  <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="x" id="closeModal" type="button" aria-label="Cerrar">✕</button>
+
+    <div id="modalTitle" class="modalTitle">
+      Elegiste la fecha (si no ponla abajo)
+    </div>
+
+    <input id="dateInput" type="text" placeholder="Ej: Domingo 8pm, hoy, mañana, etc." />
+
+    <div class="finalSendWrap">
+      <button id="btnFinalSend" type="button">Enviar</button>
+    </div>
+
+    <p class="modalHint">
+      Puedes enviar sin poner fecha o cerrar con ✕.
+    </p>
+  </div>
+</div>
+
+
+  <script>
+  // =========================
 // EmailJS config (tus datos)
 // =========================
 const SERVICE_ID  = "service_n424l47";
@@ -705,32 +756,7 @@ btnFinalSend.addEventListener("click", async ()=>{
 window.addEventListener("load", buildRopeAndNodes);
 window.addEventListener("resize", buildRopeAndNodes);
 
-.modalBox .x{
-  position:absolute;
-  top:10px;
-  right:10px;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-  font-size:18px;
-  opacity:.75;
-}
-.modalBox .x:hover{ opacity:1; }
+  </script>
 
-.finalSendWrap{
-  margin-top:12px;
-  display:flex;
-  justify-content:center;
-}
-
-.modalHint{
-  margin:10px 0 0;
-  font-size:12px;
-  opacity:.7;
-}
-
-@media (max-width:420px){
-  .card{ height:min(560px,86vh); }
-  button{ min-width:0; width:44%; }
-  .buttons{ left:16px; right:16px; bottom:18px; gap:14px; }
-}
+</body>
+</html>
