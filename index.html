@@ -1,0 +1,736 @@
+
+<main class="card" id="screen1">
+  <div class="content">
+
+    <div class="art" aria-hidden="true">
+      <!-- perejil stickman con rosa -->
+      <svg viewBox="0 0 200 200" width="160" height="160">
+        <path d="M98 26
+                 C86 18, 78 30, 84 40
+                 C70 34, 62 50, 76 58
+                 C58 58, 60 76, 78 78
+                 C70 90, 88 98, 98 88
+                 C110 102, 134 90, 122 76
+                 C140 76, 144 56, 126 54
+                 C140 44, 124 28, 114 38
+                 C118 26, 106 18, 98 26 Z"
+              fill="#22c55e" opacity="0.95"/>
+        <path d="M98 88 C92 102, 94 116, 100 130 C106 116, 108 100, 102 88 Z"
+              fill="#16a34a" opacity="0.95"/>
+        <g stroke="#111827" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <path d="M100 130 L100 158" />
+          <path d="M100 140 L76 132" />
+          <path d="M100 140 L128 126" />
+          <path d="M100 158 L86 180" />
+          <path d="M100 158 L114 180" />
+        </g>
+        <path d="M128 126 L150 98" stroke="#065f46" stroke-width="5" stroke-linecap="round"/>
+        <path d="M142 104 C138 104, 136 110, 141 112 C146 114, 148 108, 142 104 Z"
+              fill="#22c55e"/>
+        <g transform="translate(150,98)">
+          <circle cx="0" cy="0" r="10" fill="#ef4444"/>
+          <path d="M0 -12 C10 -12, 12 -2, 0 -2 C-12 -2, -10 -12, 0 -12 Z" fill="#f87171"/>
+          <path d="M0 2 C10 2, 12 12, 0 12 C-12 12, -10 2, 0 2 Z" fill="#dc2626" opacity=".9"/>
+          <circle cx="0" cy="0" r="3" fill="#111827" opacity=".35"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1>salimoss?</h1>
+
+    <div class="rope-layer" aria-hidden="true">
+      <svg>
+        <path id="ropeGlow" d="" fill="none" stroke="rgba(185,76,255,.25)" stroke-width="10" stroke-linecap="round"></path>
+        <path id="ropePath" d="" fill="none" stroke="rgba(17,24,39,.65)" stroke-width="4" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="buttons" id="buttonsWrap">
+      <button id="btnYes" class="locked" type="button">Si</button>
+      <button id="btnNo" type="button">no</button>
+    </div>
+  </div>
+</main>
+
+<section class="screen2" id="screen2" aria-hidden="true">
+  <div class="panel2">
+    <p class="q2">¿Dónde salimos?</p>
+
+    <div class="radio-group" id="placeChoices">
+      <label class="opt">
+        <input type="radio" name="plan" value="boliche/chupa + porro chill">
+        <span class="dot" aria-hidden="true"></span>
+        <span>boliche / chupa + porro chill</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="cena y divagación random">
+        <span class="dot" aria-hidden="true"></span>
+        <span>cena y divagación random</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="aterrizo a la upb?">
+        <span class="dot" aria-hidden="true"></span>
+        <span>aterrizo a la upb?</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="mejor yo elijo">
+        <span class="dot" aria-hidden="true"></span>
+        <span>mejor yo elijo</span>
+      </label>
+
+      <label class="opt">
+        <input type="radio" name="plan" value="elegí todo vos">
+        <span class="dot" aria-hidden="true"></span>
+        <span>elegí todo vos</span>
+      </label>
+    </div>
+
+    <div class="label"> (detalles o plan) </div>
+    <textarea id="details" maxlength="500" placeholder="Escribe aquí… (máx 500 caracteres)"></textarea>
+
+    <div class="send-wrap">
+      <button id="btnSend" type="button" disabled>Enviar</button>
+    </div>
+
+    <p class="status" id="sendHint">Elige una opción para habilitar “Enviar”.</p>
+    <p class="status" id="sendStatus"></p>
+  </div>
+</section>
+
+<div class="modal" id="dateModal" aria-hidden="true">
+  <div class="modalBox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="x" id="closeModal" type="button" aria-label="Cerrar">✕</button>
+
+    <div id="modalTitle" class="modalTitle">
+      Elegiste la fecha (si no ponla abajo)
+    </div>
+
+    <input id="dateInput" type="text" placeholder="Ej: Domingo 8pm, hoy, mañana, etc." />
+
+    <div class="finalSendWrap">
+      <button id="btnFinalSend" type="button">Enviar</button>
+    </div>
+
+    <p class="modalHint">
+      Puedes enviar sin poner fecha o cerrar con ✕.
+    </p>
+  </div>
+</div>
+:root{
+  --bg1:#0b0b12;
+  --bg3:#ffffff;
+
+  --yes:#22c55e;
+  --no:#e5e7eb;
+  --noText:#ef4444;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Georgia","Times New Roman",serif;
+  background:
+    radial-gradient(1200px 700px at 15% 20%, rgba(185,76,255,.35), transparent 55%),
+    radial-gradient(900px 600px at 85% 80%, rgba(255,255,255,.55), transparent 55%),
+    linear-gradient(135deg, var(--bg1) 0%, #140a22 35%, #2a0f3c 55%, var(--bg3) 100%);
+  padding:24px;
+  overflow:hidden;
+}
+
+.card{
+  width:min(680px,92vw);
+  height:min(520px,78vh);
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:26px;
+  box-shadow:0 20px 80px rgba(0,0,0,.25);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(185,76,255,.22), transparent 55%),
+    radial-gradient(circle at 75% 65%, rgba(0,0,0,.10), transparent 60%);
+  filter:blur(18px);
+  pointer-events:none;
+}
+
+.content{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.art{
+  width:160px;
+  height:160px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:6px;
+}
+
+h1{
+  margin:0;
+  font-size:clamp(34px,4.2vw,44px);
+  font-weight:800;
+  color:#0b0b12;
+  letter-spacing:.2px;
+}
+
+/* rope */
+.rope-layer{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:140px;
+  z-index:1;
+  pointer-events:none;
+}
+.rope-layer svg{ width:100%; height:100%; }
+
+/* bottom buttons */
+.buttons{
+  position:absolute;
+  left:28px;
+  right:28px;
+  bottom:24px;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  z-index:2;
+  pointer-events:none;
+}
+
+button{
+  pointer-events:auto;
+  border:0;
+  border-radius:14px;
+  padding:11px 18px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  min-width:130px;
+  transition:transform .18s ease, opacity .2s ease;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+  font-family:Arial,Helvetica,sans-serif;
+  position:relative;
+  will-change:transform;
+  user-select:none;
+}
+
+button:active{ transform:scale(.98); }
+
+#btnYes{
+  background:var(--yes);
+  color:#fff;
+}
+#btnYes.locked{
+  background: rgba(34,197,94,.35);
+  pointer-events:none;
+}
+#btnYes.locked::after{
+  content:"🔒";
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  opacity:.55;
+}
+#btnYes.unlocked{
+  background:#22c55e;
+  transform:scale(1.2);
+  pointer-events:auto;
+}
+
+#btnNo{
+  background:var(--no);
+  color:var(--noText);
+  border:1px solid rgba(0,0,0,.08);
+}
+
+/* SCREEN 2 overlay */
+.screen2{
+  position:fixed;
+  inset:0;
+  background:#ffffff;
+  transform:translateX(110%);
+  transition:transform .6s cubic-bezier(.2,.9,.1,1);
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.screen2.show{ transform:translateX(0%); }
+
+.panel2{
+  width:min(740px,92vw);
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:26px;
+  box-shadow:0 20px 80px rgba(0,0,0,.18);
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  color:#0b0b12;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.q2{
+  text-align:center;
+  font-size:clamp(22px,2.6vw,28px);
+  font-weight:900;
+  margin:0;
+}
+
+.radio-group{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:6px;
+}
+
+.opt{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 12px;
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.92);
+  cursor:pointer;
+  user-select:none;
+}
+.opt input{ display:none; }
+
+.dot{
+  width:18px;height:18px;border-radius:999px;
+  border:2px solid rgba(0,0,0,.18);
+  background:#fff;
+  display:inline-block;
+  position:relative;
+  flex:0 0 auto;
+}
+.dot::after{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border-radius:999px;
+  background:#111827;
+  transform:scale(0);
+  transition:transform .15s ease;
+  opacity:.75;
+}
+.opt input:checked + .dot::after{ transform:scale(1); }
+
+.opt span:last-child{
+  font-size:16px;
+  font-weight:800;
+  color:#111827;
+  line-height:1.2;
+}
+
+.label{
+  font-weight:900;
+}
+
+textarea{
+  width:100%;
+  min-height:120px;
+  resize:vertical;
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  padding:14px;
+  font-size:16px;
+  outline:none;
+}
+
+.send-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:4px;
+}
+
+#btnSend, #btnFinalSend{
+  border:0;
+  border-radius:16px;
+  padding:12px 18px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+#btnSend{
+  background:#111827;
+  color:#fff;
+  opacity:.45;
+}
+#btnSend.enabled{ opacity:1; }
+#btnSend:disabled{ cursor:not-allowed; }
+
+.status{
+  text-align:center;
+  font-size:13px;
+  opacity:.75;
+  margin:0;
+  min-height:18px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.42);
+  z-index:80;
+  padding:18px;
+}
+.modal.show{ display:flex; }
+
+.modalBox{
+  width:min(520px,94vw);
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:0 25px 90px rgba(0,0,0,.25);
+  position:relative;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.modalTitle{
+  font-weight:900;
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+.modalBox input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.18);
+  outline:none;
+  font-size:15px;
+}
+// =========================
+// EmailJS config (tus datos)
+// =========================
+const SERVICE_ID  = "service_n424l47";
+const TEMPLATE_ID = "template_uq046ij";
+const PUBLIC_KEY  = "3i-IDVNKglbBCiuHK";
+
+// Init EmailJS
+if (typeof emailjs === "undefined") {
+  console.error("EmailJS NO está cargado. En CodePen: Settings -> JS -> External Scripts agrega el CDN de EmailJS.");
+} else {
+  emailjs.init(PUBLIC_KEY);
+  console.log("EmailJS inicializado OK");
+}
+
+// =========================
+// DOM refs
+// =========================
+const screen1   = document.getElementById("screen1");
+const btnYes    = document.getElementById("btnYes");
+const btnNo     = document.getElementById("btnNo");
+const ropePath  = document.getElementById("ropePath");
+const ropeGlow  = document.getElementById("ropeGlow");
+
+const screen2      = document.getElementById("screen2");
+const placeChoices = document.getElementById("placeChoices");
+const details      = document.getElementById("details");
+const btnSend      = document.getElementById("btnSend");
+const sendHint     = document.getElementById("sendHint");
+const sendStatus   = document.getElementById("sendStatus");
+
+const dateModal    = document.getElementById("dateModal");
+const closeModal   = document.getElementById("closeModal");
+const dateInput    = document.getElementById("dateInput");
+const btnFinalSend = document.getElementById("btnFinalSend");
+
+// =========================
+// State
+// =========================
+let noClicks = 0;
+let isSwapping = false;
+let nodes = [];
+let noScale = 1;
+
+let selectedPlan = null;
+
+let isSending = false;
+let alreadySent = false;
+
+// YES locked
+btnYes.classList.add("locked");
+
+// =========================
+// Helpers
+// =========================
+function centerRelative(el, relativeTo){
+  const r = el.getBoundingClientRect();
+  const p = relativeTo.getBoundingClientRect();
+  return { x:(r.left-p.left)+r.width/2, y:(r.top-p.top)+r.height/2 };
+}
+
+function cubicBezier(p0,p1,p2,p3,t){
+  const u=1-t, tt=t*t, uu=u*u, uuu=uu*u, ttt=tt*t;
+  return {
+    x: uuu*p0.x + 3*uu*t*p1.x + 3*u*tt*p2.x + ttt*p3.x,
+    y: uuu*p0.y + 3*uu*t*p1.y + 3*u*tt*p2.y + ttt*p3.y
+  };
+}
+
+function getTranslateXY(el){
+  const m = getComputedStyle(el).transform;
+  if(!m || m==="none") return {x:0,y:0};
+  const match = m.match(/matrix\((.+)\)/);
+  if(!match) return {x:0,y:0};
+  const parts = match[1].split(",").map(s=>parseFloat(s.trim()));
+  return { x: parts[4]||0, y: parts[5]||0 };
+}
+
+function buildRopeAndNodes(){
+  const noC  = centerRelative(btnNo, screen1);
+  const yesC = centerRelative(btnYes, screen1);
+  const dx = yesC.x - noC.x;
+
+  const p0=noC, p3=yesC;
+  const p1={ x:noC.x + dx*0.25, y:noC.y - 70 };
+  const p2={ x:noC.x + dx*0.75, y:yesC.y - 45 };
+
+  const d = `M ${p0.x} ${p0.y} C ${p1.x} ${p1.y}, ${p2.x} ${p2.y}, ${p3.x} ${p3.y}`;
+  ropePath.setAttribute("d", d);
+  ropeGlow.setAttribute("d", d);
+
+  const tList=[0.18,0.36,0.54,0.72,0.88];
+  nodes = tList.map(t=>cubicBezier(p0,p1,p2,p3,t));
+}
+
+function setScaleKeepTranslate(el, scale){
+  const t=getTranslateXY(el);
+  el.style.transition=`transform 180ms ease`;
+  el.style.transform=`translate(${t.x}px, ${t.y}px) scale(${scale})`;
+}
+
+function moveNoTo(point, ms=190){
+  const cur=centerRelative(btnNo, screen1);
+  const dx=point.x-cur.x, dy=point.y-cur.y;
+  const base=getTranslateXY(btnNo);
+  btnNo.style.transition=`transform ${ms}ms cubic-bezier(.2,.9,.2,1)`;
+  btnNo.style.transform=`translate(${base.x+dx}px, ${base.y+dy}px) scale(${noScale})`;
+}
+
+async function swapYesNo(){
+  if(isSwapping) return;
+  isSwapping=true;
+
+  const yesC=centerRelative(btnYes, screen1);
+  const noC=centerRelative(btnNo, screen1);
+
+  const yesT=getTranslateXY(btnYes);
+  const noT=getTranslateXY(btnNo);
+
+  const dxYes=noC.x-yesC.x, dyYes=noC.y-yesC.y;
+  const dxNo =yesC.x-noC.x, dyNo =yesC.y-noC.y;
+
+  btnYes.style.transition=`transform 260ms cubic-bezier(.2,.9,.2,1)`;
+  btnYes.style.transform =`translate(${yesT.x+dxYes}px, ${yesT.y+dyYes}px)`;
+
+  btnNo.style.transition=`transform 260ms cubic-bezier(.2,.9,.2,1)`;
+  btnNo.style.transform =`translate(${noT.x+dxNo}px, ${noT.y+dyNo}px) scale(${noScale})`;
+
+  await new Promise(r=>setTimeout(r, 280));
+  buildRopeAndNodes();
+  isSwapping=false;
+}
+
+function unlockYes(){
+  btnYes.classList.remove("locked");
+  btnYes.classList.add("unlocked");
+}
+
+function openScreen2(){
+  screen2.classList.add("show");
+  screen2.setAttribute("aria-hidden","false");
+}
+
+function openModal(){
+  dateModal.classList.add("show");
+  dateModal.setAttribute("aria-hidden","false");
+  dateInput.value="";
+  setTimeout(()=>dateInput.focus(), 30);
+}
+
+function closeModalFn(){
+  dateModal.classList.remove("show");
+  dateModal.setAttribute("aria-hidden","true");
+}
+
+// =========================
+// Events: NO / YES
+// =========================
+btnNo.addEventListener("click", async ()=>{
+  if(isSwapping) return;
+  noClicks++;
+
+  if(noClicks===1){
+    noScale *= 0.6;
+    setScaleKeepTranslate(btnNo, noScale);
+    await new Promise(r=>setTimeout(r, 190));
+  }
+
+  const idx = Math.min(noClicks, 5) - 1;
+  if(nodes[idx]){
+    moveNoTo(nodes[idx], 190);
+    await new Promise(r=>setTimeout(r, 210));
+  }
+
+  if(noClicks===4){
+    noScale *= 0.6;
+    setScaleKeepTranslate(btnNo, noScale);
+    await new Promise(r=>setTimeout(r, 190));
+  }
+
+  if(noClicks===5){
+    await swapYesNo();
+    unlockYes();
+  }
+});
+
+btnYes.addEventListener("click", ()=>{
+  if(btnYes.classList.contains("locked")) return;
+  openScreen2();
+});
+
+// =========================
+// Screen2: enable send
+// =========================
+placeChoices.addEventListener("change", (e)=>{
+  if(e.target && e.target.name==="plan"){
+    selectedPlan = e.target.value;
+    btnSend.disabled = false;
+    btnSend.classList.add("enabled");
+    sendHint.textContent = "Listo. Ahora puedes presionar “Enviar”.";
+  }
+});
+
+btnSend.addEventListener("click", ()=>{
+  if(!selectedPlan){
+    sendHint.textContent="Elige una opción primero.";
+    return;
+  }
+  if(alreadySent){
+    sendStatus.textContent="✅ Ya se envió.";
+    return;
+  }
+  openModal();
+});
+
+closeModal.addEventListener("click", closeModalFn);
+dateModal.addEventListener("click", (e)=>{
+  if(e.target === dateModal) closeModalFn();
+});
+
+// =========================
+// Send EmailJS
+// =========================
+btnFinalSend.addEventListener("click", async ()=>{
+  if (isSending || alreadySent) return;
+
+  if (typeof emailjs === "undefined") {
+    sendStatus.textContent = "❌ Falta cargar EmailJS (Settings -> JS -> External Scripts).";
+    return;
+  }
+
+  isSending = true;
+  sendStatus.textContent = "Enviando...";
+  btnFinalSend.disabled = true;
+
+  const payload = {
+    plan: selectedPlan,
+    detalles: details.value.trim() || "(sin detalles)",
+    fecha: dateInput.value.trim() || "(sin fecha)",
+    time: new Date().toLocaleString()
+  };
+
+  try{
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, payload);
+    alreadySent = true;
+    sendStatus.textContent = "✅ Enviado a tu correo.";
+    closeModalFn();
+  }catch(err){
+    console.error("EMAILJS ERROR:", err);
+    sendStatus.textContent = "❌ Error enviando. Revisa consola (F12).";
+    btnFinalSend.disabled = false;
+  }finally{
+    isSending = false;
+  }
+});
+
+// Init rope
+window.addEventListener("load", buildRopeAndNodes);
+window.addEventListener("resize", buildRopeAndNodes);
+
+.modalBox .x{
+  position:absolute;
+  top:10px;
+  right:10px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-size:18px;
+  opacity:.75;
+}
+.modalBox .x:hover{ opacity:1; }
+
+.finalSendWrap{
+  margin-top:12px;
+  display:flex;
+  justify-content:center;
+}
+
+.modalHint{
+  margin:10px 0 0;
+  font-size:12px;
+  opacity:.7;
+}
+
+@media (max-width:420px){
+  .card{ height:min(560px,86vh); }
+  button{ min-width:0; width:44%; }
+  .buttons{ left:16px; right:16px; bottom:18px; gap:14px; }
+}
